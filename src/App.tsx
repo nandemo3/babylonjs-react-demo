@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-function App() {
+import SceneComponent from './SceneComponent';
+
+
+const App: FC = () => {
+
   return (
-    <div>
-    </div>
+    <SceneComponent />
   );
 }
-
 export default App;
