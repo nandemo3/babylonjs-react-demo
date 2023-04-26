@@ -3,8 +3,13 @@ import { Animation, Vector3 } from '@babylonjs/core'
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { useScene } from 'react-babylonjs'
 
-function getSpinAnimation() {
+type ArcSphereProps = {
+    name: string;
+    rotation: Vector3;
+    diffuseColor?: Color3
+}
 
+function getSpinAnimation() {
     const keys = [
       {
         frame: 0,
@@ -51,38 +56,22 @@ const ChupaShupsWindmill: FC = () => {
                 ref={groupRef}
                 position={position}
             >
-                <sphere
+                <ArcSphere
                     name="windmill1"
-                    arc={0.25}
-                    sideOrientation={2}
-                    diameter={0.5}
-                    segments={16}
-                    position={new Vector3(undefined, 2.5, undefined)}
                     rotation={new Vector3(undefined, -Math.PI / 2, undefined)}
-                >
-                    <standardMaterial name="windmill1-material" specularPower={16}
-                        diffuseColor={Color3.Red()}
-                    />
-                </sphere>
-                <sphere
+                    diffuseColor={Color3.Red()}
+                />
+                <ArcSphere
                     name="windmill2"
-                    arc={0.25}
-                    sideOrientation={2}
-                    diameter={0.5}
-                    segments={16}
-                    position={new Vector3(undefined, 2.5, undefined)}
                     rotation={new Vector3(undefined, Math.PI / 2, undefined)}
-                    >
-                    <standardMaterial name="windmill2-material" specularPower={16}
-                        diffuseColor={Color3.Yellow()}
-                    />
-                </sphere>
+                    diffuseColor={Color3.Yellow()}
+                />
             </transformNode>
             <cylinder
                 name="cylinder"
-                height={4.5}
-                diameterTop={0.05}
-                diameterBottom={0.25}
+                height={4}
+                diameterTop={0.1}
+                diameterBottom={0.3}
             >
                 <standardMaterial name="cylinder-material" specularPower={16}
                     diffuseColor={Color3.White()}
@@ -91,6 +80,22 @@ const ChupaShupsWindmill: FC = () => {
         </>
     )
 
+}
+
+const ArcSphere = ({name, rotation, diffuseColor}: ArcSphereProps) => {
+    return (
+        <sphere
+            name={name}
+            arc={0.25}
+            sideOrientation={2}
+            position={new Vector3(undefined, 2.5, undefined)}
+            rotation={rotation}
+            >
+            <standardMaterial name={`${name}-material`} specularPower={16}
+                diffuseColor={diffuseColor}
+            />
+        </sphere>
+    )
 }
 
 export default ChupaShupsWindmill;
